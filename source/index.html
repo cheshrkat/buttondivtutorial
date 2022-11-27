@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Amazing Clickatron</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <main>
+    <h1>Button vs Div</h1>
+
+    <div class="group" id="divandbutton" role="application" aria-label="Click counter">
+
+      <div class="item">
+        <button id="defaultbutton" aria-controls="defaultbuttoncounter">Standard Button</button>
+        <div id="defaultbuttoncounter" role="region" aria-live="polite" aria-label="Standard button clicks">0</div>
+      </div>
+
+      <div class="item">
+        <button class="fancybutton" id="countbutton" aria-controls="buttoncounter">Fancy Button</button>
+        <div id="buttoncounter" role="region" aria-live="polite" aria-label="Fancy button clicks">0</div>
+      </div>
+
+      <div class="item">
+        <div class="divbutton" id="countdiv" role="button" tabindex="0" aria-disabled="false" aria-controls="divcounter">Fancy Div</div>
+        <div id="divcounter" role="region" aria-live="polite" aria-label="div clicks">0</div>
+      </div>
+
+      <div class="item">
+        <input type="checkbox" id="enablecontrols" name="enablecontrols" checked>
+        <label for="enablecontrols">Enable controls</label>
+      </div>
+
+    </div>
+  </main>
+  <script src="index.js"></script>
+</body>
+</html>

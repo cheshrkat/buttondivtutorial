@@ -1,0 +1,17 @@
+{
+  "name": "button-div-tutorial",
+  "version": "0.1.0",
+  "description": "A test driven tutorial on making a DIV equivalent to a BUTTON",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "npx playwright test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@axe-core/playwright": "4.*",
+    "@playwright/test": "1.*",
+    "express": "4.*"
+  }
+}
