@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "npx playwright test"
+    "startdemo": "env BUTTONDIV_SOURCE_DIR=demo node server.js",
+    "test": "npx playwright test",
+    "testdiv": "npx playwright test -g 'DIV tests'",
+    "testdemo": "env BUTTONDIV_SOURCE_DIR=demo npx playwright test"
   },
   "author": "",
   "license": "ISC",

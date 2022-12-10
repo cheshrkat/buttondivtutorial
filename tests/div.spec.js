@@ -6,11 +6,12 @@ const theDefaultButtonCounter = '#defaultbuttoncounter';
 const theButton = '#countbutton';
 const theButtonCounter = '#buttoncounter';
 const theDiv = '#countdiv';
+const theDivItem = '#divitem';
 const theDivCounter = '#divcounter';
 const theCheckbox = '#enablecontrols';
 
 
-test.describe("The DIV tests", () => {
+test.describe("DIV tests", () => {
   test.beforeEach(async ({ page }) => {
     // Note the localhost is defined in test config
     await page.goto("/");
@@ -46,7 +47,28 @@ test.describe("The DIV tests", () => {
     await expect(page.locator(theDivCounter)).toHaveText("1")
   });
 
-  test('Can you tab through all three controls including the DIV', async ({ page }) => {
+  test('Does the DIV *not* increment by hitting keys other than spacebar or enter?', async ({ page }) => {
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await expect(page.locator(theDiv)).toBeFocused();
+
+    await expect(page.locator(theDivCounter)).toHaveText("0")
+    await page.keyboard.press('a');
+    await page.keyboard.press('b');
+    await page.keyboard.press('c');
+    await expect(page.locator(theDivCounter)).toHaveText("0")
+  });
+
+  test('Is it possible to reach the DIV using the keyboard?', async ({ page }) => {
+    await expect(page.locator(theDiv)).toHaveAttribute('tabindex', '0');
+  });
+
+  test('Can you move past the DIV in both directions, using tab and shift+tab?', async ({ page }) => {
+    /**
+     * You should be able to move through the page using TAB to move forwards/down; and SHIFT+TAB to move backwards/up.
+     * This test tabs down to the checkbox then back up to the button using shift+tab.
+     */
     await page.keyboard.press('Tab');
     await expect(page.locator(theDefaultButton)).toBeFocused();
     await expect(page.locator(theButton)).not.toBeFocused();
@@ -55,19 +77,19 @@ test.describe("The DIV tests", () => {
     await expect(page.locator(theButton)).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(page.locator(theDiv)).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(page.locator(theCheckbox)).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.locator(theDiv)).toBeFocused();
     await page.keyboard.press('Shift+Tab');
     await expect(page.locator(theButton)).toBeFocused();
   });
 
-  test('Has the DIV been given the role of button?', async ({ page }) => {
+  test('Has the DIV been set to the role of button?', async ({ page }) => {
     await expect(page.locator(theDiv)).toHaveAttribute('role', 'button');
   });
 
-  test('Can you tab to the DIV using the keyboard?', async ({ page }) => {
-    await expect(page.locator(theDiv)).toHaveAttribute('tabindex', '0');
-  });
-
-  test('Does the DIV expose its disabled state correctly?', async ({ page }) => {
+  test('Does the DIV expose its disabled state to assistive technology?', async ({ page }) => {
     const cb = page.locator(theCheckbox);
     await expect(page.locator(theDiv)).toHaveAttribute('aria-disabled', 'false');
     cb.uncheck() // Disable controls
@@ -76,7 +98,7 @@ test.describe("The DIV tests", () => {
     await expect(page.locator(theDiv)).toHaveAttribute('aria-disabled', 'false');
   });
 
-  test('Does the DIV actually get disabled?', async ({ page }) => {
+  test('When disabled, the DIV should not increment the counter if clicked', async ({ page }) => {
     const cb = page.locator(theCheckbox);
     await expect(page.locator(theDivCounter)).toHaveText("0")
 
@@ -120,6 +142,14 @@ test.describe("The DIV tests", () => {
 
   test("Does the DIV's layout work the same as a button's layout?", async ({ page }) => {
     await expect(page.locator(theDiv)).toHaveCSS('display', 'inline-block');
+    // playwright test if an html's width is less than 100% of its parent's width
+    // const divWidth = await page.locator(theDiv).getProperty('offsetWidth');
+    // const itemWidth = await page.locator(theDivItem).getProperty('offsetWidth');
+
+
+    // const divWidth = await page.evaluate(() => document.getElementById("countdiv").offsetWidth);
+    // const itemWidth = await page.evaluate(() => document.getElementById("divitem").offsetWidth);
+    // await expect(divWidth < itemWidth).toBeTruthy();
   });
 
   test('Does the DIV get the correct cursor when you hover over it?', async ({ page }) => {

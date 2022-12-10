@@ -51,11 +51,34 @@ body {
   padding: 0.5rem 1rem;
   font-size: var(--text-size);
 
-  /* TUTORIAL: you will need to add more styles to make the DIV behave itself */
+  /* buttons are inline-block, divs are block */
+  display: inline-block;
+
+  /* prevent text selection, same as button */
+  user-select: none;
+
+  /* set the same cursor as a button */
+  cursor: default;
 
 }
 
-/* 
-TUTORIAL: you need to handle all the same states as the button (hover, focus, active and disabled).
-Since the DIV doesn't have the same properties as a BUTTON you will need to work out the different selectors.
-*/
+.divbutton[aria-disabled="false"]:hover {
+  background: #eee;
+}
+
+.fancybutton:focus {
+  outline: 1px solid black;
+}
+
+.divbutton[aria-disabled="false"]:active {
+  background: linear-gradient(to top, #f6f6f6 0%, #dedede 100%);
+}
+
+.divbutton[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+/* This dovetails with JS to detect input */
+body[data-inputmode="mouse"] .divbutton:focus {
+  outline: none;
+}
