@@ -142,14 +142,6 @@ test.describe("DIV tests", () => {
 
   test("Does the DIV's layout work the same as a button's layout?", async ({ page }) => {
     await expect(page.locator(theDiv)).toHaveCSS('display', 'inline-block');
-    // playwright test if an html's width is less than 100% of its parent's width
-    // const divWidth = await page.locator(theDiv).getProperty('offsetWidth');
-    // const itemWidth = await page.locator(theDivItem).getProperty('offsetWidth');
-
-
-    // const divWidth = await page.evaluate(() => document.getElementById("countdiv").offsetWidth);
-    // const itemWidth = await page.evaluate(() => document.getElementById("divitem").offsetWidth);
-    // await expect(divWidth < itemWidth).toBeTruthy();
   });
 
   test('Does the DIV get the correct cursor when you hover over it?', async ({ page }) => {
