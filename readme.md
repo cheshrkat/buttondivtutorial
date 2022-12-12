@@ -5,8 +5,8 @@ This tutorial is not ready to go yet.
 
 To do:
 
-* test on Mac
 * finish step-through docs
+* add tests for the focus and active styles still leaking through when the DIV is disabled
 
 # Button vs. Div Frontend Accessibility Tutorial
 
@@ -121,20 +121,19 @@ Background: [MDN: CSS display](https://developer.mozilla.org/en-US/docs/Web/CSS/
 
 #### Does the DIV prevent text selection?
 
-If you click and drag on a `button`, the text will not be selected. But if you click and drag on a `div`, the text is selected as though it was general non-interactive text.
+If you click and drag your mouse on a `button`, the text will not be selected. But if you click and drag on a `div`, the text is selected as though it was general non-interactive text. You need to handle this in your CSS by setting `user-select: none;` on the `div`.
 
 Background: [MDN: CSS user-select](https://developer.mozilla.org/en-US/docs/Web/CSS/user-select)
 
 #### Does the DIV get the correct cursor when you hover over it?
 
-When you hover over a button, you see the `default` cursor (pointer), which indicates it is interactive. If you hover the `div`, you'll see the `text` cursor (I-beam) which indicates the text can be selected - but this `div` is meant to be a button, which should not be selected.
+When you hover over a button, you see the `default` cursor (pointer), which indicates it is interactive. If you hover the `div`, you'll see the `text` cursor (I-beam) which indicates the text can be selected - but this `div` is meant to be a button, which should not be selected. You can fix this in your CSS with `cursor: default;`.
 
 Background: [MDN: CSS cursor](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
 
-
 #### Is it possible to reach the DIV using the keyboard?
 
-To activate a control with the keyboard, the user needs to be able to move focus onto that control first. Open up your solution and hit the tab key a few times - you'll see focus move on to the default button, the styled button, but then it will skip to the checkbox that disables the controls.
+To activate a control with the keyboard, the user needs to be able to move focus onto that control. Open up your solution and hit the tab key a few times - you'll see focus move on to the default button, the styled button, but then it will skip to the checkbox that disables the controls.
 
 This happens because `button`s are focusable elements, but `div`s are not. You need to add the `div` to the document's natural tab order, by adding a `tabindex` attribute.
 
@@ -151,7 +150,9 @@ Tests:
 * Does the DIV *not* increment by hitting keys other than spacebar or enter?
 * Can you move past the DIV in both directions, using tab and shift+tab?
 
-Now that you can move focus to the `div`, you need to make it do something. First off, try adding a general keypress listener:
+Now that you can move focus to the `div`, you need to make it do something.
+
+First, add a keypress listener (keydown would also work):
 ```
 $div.addEventListener('keypress', function (event) {
     divCounter(event);
@@ -170,7 +171,8 @@ $div.addEventListener('keypress', function (event) {
     }
 });
 ```
-If you are wondering about the test for TAB and SHIFT+TAB - it's unlikely that you will create the problem in this tutorial, but in real world scenarios it is possible to 'trap' users on an element. For example if a custom component manages keyboard focus, it may be set up to move forwards with the TAB key, but the author may forget to account for SHIFT+TAB moving backwards. A similar type of bug can be introduced when they replicate an HTML element like SELECT, but don't match the normal behaviour like responding to cursor keys (up and down arrows). So if you are working on a custom component that replaces a native element, you need to create a detailed keyboard interaction specification to make sure it works as people will expect it to. 
+
+If you are wondering about the test for TAB and SHIFT+TAB - it's unlikely that you will create the problem in this tutorial, but it is possible to 'trap' users on an element by stopping standard keystrokes like TAB and SHIFT+TAB. A similar type of bug can be introduced when they replicate an HTML element like SELECT, but don't match the normal behaviour like responding to cursor keys (up and down arrows). So if you are working on a custom component that replaces a native element, you need to create a detailed keyboard interaction specification to make sure it works as people will expect it to. 
 
 Background:
 
@@ -179,16 +181,16 @@ Background:
 
 #### Disabling the `div` (multiple tests)
 
-Use the checkbox to toggle the disabled state of all controls.
+Use the checkbox to toggle the disabled state of the controls.
 
 Tests:
 
 * When disabled, the DIV should not increment the counter if clicked
 * Does the DIV expose its disabled state to assistive technology?
 
-Disabling a `button` element is done by setting or removing the `disabled` attribute. You can see this being done within `$checkbox.onchange` for the two buttons. This doesn't work on `div` elements because `div`s don't support the `disabled` attribute - it's not designed to be interactive.
+Disabling a `button` element is done by setting or removing the `disabled` attribute. You can see this being done within `$checkbox.onchange` for the two buttons. This doesn't work on `div` elements because `div`s don't support the `disabled` attribute.
 
-You will have to handle this yourself by disabling the counter in your JavaScript, and since we are using a DOM scripting approach, that means you need to toggle something in the HTML. It is not recommended that you inject a `disabled` attribute as that's invalid. You could certainly use a class or a custom data attribute, but there is a better option. You can make use of the `aria-disabled` attribute, which allows strings of `true` and `false` - actually very useful for testing anyway!
+You will have to handle this yourself by disabling the counter in your JavaScript, and since we are using a DOM scripting approach, that means you need to toggle something in the HTML. It is not recommended that you inject a `disabled` attribute as that's invalid. You could certainly use a class or a custom data attribute, but there is a better option. You can make use of the `aria-disabled` attribute, which allows strings of `true` and `false` - very useful for testing as well as accessibility.
 
 Change you JavaScript to add `aria-disabled="true"` when the `div` should be disabled; and `aria-disabled="false"` when it should be enabled:
 
@@ -206,6 +208,7 @@ function divCounter(event) {
     }
 }
 ```
+
 You can also add style by using the attribute selector:
 ```
 .divbutton[aria-disabled="true"] {}
@@ -225,7 +228,6 @@ Set the controls to disabled using the checkbox, and you'll find you cannot tab 
 
 In a real-world scenario, handling this manually for every single instance of a button would be impractical, so the demo implementation uses `MutationObserver` to handle this generically for any instance of `div.divbutton`. But for the tutorial you can use a simpler solution and wire it up in `$checkbox.onchange`.
 
-
 ## Conclusion
 
 Through this tutorial you've been able to replicate `button` functionality on a `div`. However you should also have noticed it took significantly more steps, and more code, than the `button` element required for the same result.
@@ -233,3 +235,4 @@ Through this tutorial you've been able to replicate `button` functionality on a 
 In the version I presented at A11y Camp, I calcuated the DIV required four extra attributes in the HTML; and 57 extra lines of CSS and JS. To put it another way, the `div` required more than five times as much code as the `button`.
 
 The specific challenges will vary in real-world situations, and some UI frameworks now do a better job of bridging the gaps. When you encounter custom elements based on generics like `div` and `span`, you should now have a good idea where to start testing them for accessibility. Or, you may be able to swap them over to use a more appropriate HTML element. 
+

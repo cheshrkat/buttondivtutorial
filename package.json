@@ -1,8 +1,11 @@
 {
   "name": "button-div-tutorial",
   "version": "0.1.0",
-  "description": "A test driven tutorial on making a DIV equivalent to a BUTTON",
-  "main": "index.js",
+  "description": "A test-driven web accessibility tutorial about making a DIV equivalent to a BUTTON",
+  "engines": {
+    "node": ">=16 <19"
+  },
+
   "scripts": {
     "start": "node server.js",
     "startdemo": "env BUTTONDIV_SOURCE_DIR=demo node server.js",
@@ -10,8 +13,8 @@
     "testdiv": "npx playwright test -g 'DIV tests'",
     "testdemo": "env BUTTONDIV_SOURCE_DIR=demo npx playwright test"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ben Buchanan",
+  "license": "CC-BY-SA-4.0",
   "devDependencies": {
     "@axe-core/playwright": "4.*",
     "@playwright/test": "1.*",
