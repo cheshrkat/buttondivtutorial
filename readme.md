@@ -1,7 +1,7 @@
 # Button vs. Div Frontend Accessibility Tutorial
 
 > **Warning**
-> This tutorial is in beta, needs testing and may contain mistakes. If you find a problem please log an issue.
+> This tutorial is in beta, needs testing and almost certainly contains a few mistakes. If you find a problem please log an issue or send me a toot: [mastodon.social/@200ok](https://mastodon.social/@200ok)
 
 This is a test-driven tutorial designed to teach you all the things HTML `button` elements actually do, by replicating their functionality on a `div` element using HTML, CSS and JavaScript. Note that in production, you really should just use a `button` - but after this you'll understand why. Also if you are maintaining existing code that relies on clickable `div` elements, it will help you understand how to make them more accessible.
 
