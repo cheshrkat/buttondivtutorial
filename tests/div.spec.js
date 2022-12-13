@@ -10,6 +10,10 @@ const theDivItem = '#divitem';
 const theDivCounter = '#divcounter';
 const theCheckbox = '#enablecontrols';
 
+const cccRgb = 'rgb(204, 204, 204)';
+const eeeRgb = 'rgb(238, 238, 238)';
+const restingBackground = 'rgb(204, 204, 204) linear-gradient(rgb(246, 246, 246) 0%, rgb(222, 222, 222) 100%) repeat scroll 0% 0% / auto padding-box border-box';
+const activeBackground = 'rgb(221, 221, 221) linear-gradient(to top, rgb(246, 246, 246) 0%, rgb(222, 222, 222) 100%) repeat scroll 0% 0% / auto padding-box border-box';
 
 test.describe("DIV tests", () => {
   test.beforeEach(async ({ page }) => {
@@ -30,7 +34,6 @@ test.describe("DIV tests", () => {
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
     await expect(page.locator(theDiv)).toBeFocused();
-
     await expect(page.locator(theDivCounter)).toHaveText("0")
     await page.keyboard.press('Enter');
     await expect(page.locator(theDivCounter)).toHaveText("1")
@@ -41,7 +44,6 @@ test.describe("DIV tests", () => {
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
     await expect(page.locator(theDiv)).toBeFocused();
-
     await expect(page.locator(theDivCounter)).toHaveText("0")
     await page.keyboard.press(' '); // Spacebar
     await expect(page.locator(theDivCounter)).toHaveText("1")
@@ -52,7 +54,6 @@ test.describe("DIV tests", () => {
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
     await expect(page.locator(theDiv)).toBeFocused();
-
     await expect(page.locator(theDivCounter)).toHaveText("0")
     await page.keyboard.press('a');
     await page.keyboard.press('b');
@@ -68,6 +69,7 @@ test.describe("DIV tests", () => {
     /**
      * You should be able to move through the page using TAB to move forwards/down; and SHIFT+TAB to move backwards/up.
      * This test tabs down to the checkbox then back up to the button using shift+tab.
+     * Doing this longhand to help illustrate the interaction.
      */
     await page.keyboard.press('Tab');
     await expect(page.locator(theDefaultButton)).toBeFocused();
@@ -130,13 +132,11 @@ test.describe("DIV tests", () => {
 
     cb.uncheck() // Disable controls
     await expect(page.locator(theDiv)).toHaveAttribute('aria-disabled', 'true');
-    tabbable = await page.locator(theDiv).getAttribute('tabindex');
-    expect(tabbable).toBeNull()
-
+    await expect(page.locator(theDiv)).not.toHaveAttribute('tabindex', '0');
+    
     cb.check() // Re-enable controls
     await expect(page.locator(theDiv)).toHaveAttribute('aria-disabled', 'false');
     await expect(page.locator(theDiv)).toHaveAttribute('tabindex', '0');
-
   });
 
 
@@ -150,6 +150,57 @@ test.describe("DIV tests", () => {
 
   test('Does the DIV prevent text selection?', async ({ page }) => {
     await expect(page.locator(theDiv)).toHaveCSS('user-select', 'none');
+  });
+
+  test('Does the DIV apply the correct style when disabled?', async ({ page }) => {
+    await page.locator(theCheckbox).uncheck();
+    await expect(page.locator(theDiv)).toHaveCSS('opacity', '0.5');
+  });
+
+  test('When enabled, DIV should apply active style', async ({ page }) => {
+    await expect(page.locator(theDiv)).toHaveCSS('background', restingBackground);
+    await page.locator(theDiv).hover();
+    await page.mouse.down();
+    await expect(page.locator(theDiv)).toHaveCSS('background', activeBackground);
+  });
+  test('When disabled, DIV should not apply active style', async ({ page }) => {
+    await expect(page.locator(theDiv)).toHaveCSS('background', restingBackground);
+    await page.locator(theCheckbox).uncheck();
+    await page.locator(theDiv).hover();
+    await page.mouse.down();
+    await expect(page.locator(theDiv)).toHaveCSS('background', restingBackground);
+  });
+
+  test('When enabled, DIV should apply hover style', async ({ page }) => {
+    let background;
+    background = await page.$eval(theDiv, e => getComputedStyle(e).backgroundColor);
+    expect(background).toBe(cccRgb);
+    await page.locator(theDiv).hover();
+    background = await page.$eval(theDiv, e => getComputedStyle(e).backgroundColor);
+    expect(background).toBe(eeeRgb);
+  });
+  test('When disabled, the DIV should not apply hover style', async ({ page }) => {
+    let background;
+    background = await page.$eval(theDiv, e => getComputedStyle(e).backgroundColor);
+    expect(background).toBe(cccRgb);
+    await page.locator(theCheckbox).uncheck();
+    await page.locator(theDiv).hover();
+    background = await page.$eval(theDiv, e => getComputedStyle(e).backgroundColor);
+    expect(background).toBe(cccRgb);
+  });
+
+  test("Does the DIV's focus style apply with keyboard focus?", async ({ page }) => {
+    // Using tab to ensure the DIV is focused via keyboard
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await expect(page.locator(theDiv)).toBeFocused();
+    await expect(page.locator(theDiv)).toHaveCSS('outline', 'rgb(0, 0, 0) solid 1px');
+  });
+  test("Does the DIV's focus style NOT apply with mouse focus (after click)?", async ({ page }) => {
+    // Clicking the div causes the DIV to have focus from the mouse, not keyboard
+    await page.locator(theDiv).click();
+    await expect(page.locator(theDiv)).not.toHaveCSS('outline', 'rgb(0, 0, 0) solid 1px');
   });
 
 

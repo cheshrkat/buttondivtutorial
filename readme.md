@@ -1,13 +1,3 @@
-
-# INCOMPLETE
-
-This tutorial is not ready to go yet.
-
-To do:
-
-* finish step-through docs
-* add tests for the focus and active styles still leaking through when the DIV is disabled
-
 # Button vs. Div Frontend Accessibility Tutorial
 
 This is a test-driven tutorial designed to teach you all the things HTML `button` elements actually do, by replicating their functionality on a `div` element using HTML, CSS and JavaScript. Note that in production, you really should just use a `button` - but after this you'll understand why. Also if you are maintaining existing code that relies on clickable `div` elements, it will help you understand how to make them more accessible.
@@ -39,7 +29,7 @@ Behaviour:
 
 Style:
 
-* The DIV must look the same as the BUTTON in all states; including resting state, focus, hover, active, clicked and disabled
+* The DIV must look the same as the BUTTON in all states; including resting state, focus, hover, active, clicked and disabled. Note you should copy and paste the exact colour codes, gradients, etc to ensure tests pass.
 * In addition to the visual treatment, the layout of the DIV be the same as well - it should only be as wide as the text requires
 
 Additional requirements when disabled:
@@ -55,10 +45,12 @@ Additional requirements when disabled:
 ### Set up & check the demo is working
 
 1. Clone or download this repository
-2. Install NodeJS (https://nodejs.org/en/). The project has been tested on v18 and v19.
+2. [Install NodeJS](https://nodejs.org/)
 3. Open the repository in your CLI of choice (WSL or Terminal recommended, should also work in Powershell)
 4. In the repo directory, run `npm install`
 5. In the repo directory, run `npm run testdemo` to run the Playwright tests over the demo. These should all pass - this confirms your environment is set up and ready.
+6. In the repo directory, run `npm run testdiv`. This runs the tests over the code you will be editing. All of these tests should fail at the start.
+7. Now comes the main tutorial - follow the guide below and edit the files in `./source/`. Re-run `npm run testdiv` periodically to track your progress.
 
 Available commands:
 
@@ -81,7 +73,7 @@ Note that you don't have to run the server to view the solution, you can just lo
 
 ### Starting the tutorial
 
-Run `npm testdiv` - you should see a set of failed tests. The tutorial is fundamentally "make these tests pass". 
+Run `npm run testdiv` - you should see a set of failed tests. The tutorial is fundamentally "make these tests pass". 
 
 You will need to edit three files:
 
@@ -89,29 +81,27 @@ You will need to edit three files:
 * `/source/index.css`
 * `/source/index.js`
 
-Look for `TUTORIAL` in each file for hints on where you need to edit. Re-run `npm test` after each edit.
+Look for `TUTORIAL` in each file for hints on where you need to edit. Re-run `npm testdiv` after each edit.
 
-Since this isn't a JavaScript tutorial, the very basic functionality of counting clicks has been done for you; 
+You don't have to run the server to work on the files, they can be loaded directly from your system drive.
 
-You don't have to run the server to work on the files, they can be loaded directly from your hard drive. The tests do run in the server, so don't have the server running when you run the tests.
-
-### Guided process to complete the tutorial
+## Guided process to complete the tutorial
 
 Each heading corresponds to a test. The order of test results may vary from the order of the tutorial, but this does not change the results.
 
-#### Does the DIV accept click events and increment the counter?
+### Does the DIV accept click events and increment the counter?
 
 Let's start with the basics - making the `div` do something. Since JavaScript isn't really the focus of this tutorial, find the `divCounter` function and uncomment the line that activates the counter. This should get your first test to pass as you can now click the `div` to increment the counter.
 
 Note that the `div` is set up to call a function instead of just performing the action within the event listener. This is more code than the `button`, for reasons that will be apparent later.
 
-#### Has the DIV been set to the role of button?
+### Has the DIV been set to the role of button?
 
 Just because it acts like a button doesn't mean assisitive technology recognises it as a button. In the HTML you need to set the ARIA `role` to `button` so assistive technology know to treat the `div` element as though it was a `button`.
 
 Background: [MDN: ARIA button role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role)
 
-#### Does the DIV's layout work the same as a button's layout?
+### Does the DIV's layout work the same as a button's layout?
 
 You have probably noticed by now that the `div` is stretching to the full width of your solution, while the `button` shrinks to fit the text. This is because the default styles for the two elements are different: `div` is a block element, while `button` is an inline-block element.
 
@@ -119,19 +109,19 @@ So your CSS will need to set the `div` to `inline-block`. There are other ways t
 
 Background: [MDN: CSS display](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
 
-#### Does the DIV prevent text selection?
+### Does the DIV prevent text selection?
 
 If you click and drag your mouse on a `button`, the text will not be selected. But if you click and drag on a `div`, the text is selected as though it was general non-interactive text. You need to handle this in your CSS by setting `user-select: none;` on the `div`.
 
 Background: [MDN: CSS user-select](https://developer.mozilla.org/en-US/docs/Web/CSS/user-select)
 
-#### Does the DIV get the correct cursor when you hover over it?
+### Does the DIV get the correct cursor when you hover over it?
 
 When you hover over a button, you see the `default` cursor (pointer), which indicates it is interactive. If you hover the `div`, you'll see the `text` cursor (I-beam) which indicates the text can be selected - but this `div` is meant to be a button, which should not be selected. You can fix this in your CSS with `cursor: default;`.
 
 Background: [MDN: CSS cursor](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
 
-#### Is it possible to reach the DIV using the keyboard?
+### Is it possible to reach the DIV using the keyboard?
 
 To activate a control with the keyboard, the user needs to be able to move focus onto that control. Open up your solution and hit the tab key a few times - you'll see focus move on to the default button, the styled button, but then it will skip to the checkbox that disables the controls.
 
@@ -141,7 +131,7 @@ You will also need to add focus styles to the `div` so you can tell when you hav
 
 Background: [MDN: tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex)
 
-#### Activating the div with the keyboard (multiple tests)
+### Activating the div with the keyboard (multiple tests)
 
 Tests:
 
@@ -153,7 +143,7 @@ Tests:
 Now that you can move focus to the `div`, you need to make it do something.
 
 First, add a keypress listener (keydown would also work):
-```
+```js
 $div.addEventListener('keypress', function (event) {
     divCounter(event);
 });
@@ -164,7 +154,7 @@ Now tab to the `div` and hit enter and spacebar - it should update the counter. 
 
 ...but now tab to the `div` and hit other keys like `a`, `s`, `d`, `f`... they're also incrementing the counter. Try hitting those keys on the `button` and you'll see it already ignores them. You need to filter keyboard events triggered on the `div`, so that only the `Enter` and `Space` keys increment the counter:
 
-```
+```js
 $div.addEventListener('keypress', function (event) {
     if (event.code == "Enter" || event.code == "Space") {
         divCounter(event);
@@ -179,7 +169,7 @@ Background:
 * [MDN: keyboard accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Keyboard)
 * [MDN: key event](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
 
-#### Disabling the `div` (multiple tests)
+### Disabling the `div` (multiple tests)
 
 Use the checkbox to toggle the disabled state of the controls.
 
@@ -194,14 +184,14 @@ You will have to handle this yourself by disabling the counter in your JavaScrip
 
 Change you JavaScript to add `aria-disabled="true"` when the `div` should be disabled; and `aria-disabled="false"` when it should be enabled:
 
-```
+```js
 $div.setAttribute('aria-disabled', 'false');
 $div.setAttribute('aria-disabled', 'true');
 ```
 
 It is important to understand that unlike `disabled`, `aria-disabled` does not disable any functionality - it only *tells assistive technology* that the element is or isn't meant to be disabled. So you need to put a check for into the `divCounter` function:
 
-```
+```js
 function divCounter(event) {
     if (event.target.getAttribute('aria-disabled') != "true") {
         $divCounter.textContent = ++divCount;
@@ -210,7 +200,7 @@ function divCounter(event) {
 ```
 
 You can also add style by using the attribute selector:
-```
+```css
 .divbutton[aria-disabled="true"] {}
 .divbutton[aria-disabled="false"] {}
 ```
@@ -222,11 +212,98 @@ Background:
 * [MDN: disabled attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)
 * [MDN: aria-disabled attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
 
-#### Disabled DIV should not be focusable
+### Disabled DIV should not be focusable
 
 Set the controls to disabled using the checkbox, and you'll find you cannot tab to the `button`s but you can still tab to the `div`. The tabindex you added earlier needs to be removed when it's disabled; and added back when enabled.
 
 In a real-world scenario, handling this manually for every single instance of a button would be impractical, so the demo implementation uses `MutationObserver` to handle this generically for any instance of `div.divbutton`. But for the tutorial you can use a simpler solution and wire it up in `$checkbox.onchange`.
+
+### Styling the DIV for focus states (multiple tests)
+
+Tests:
+
+* Does the DIV's focus style apply with keyboard focus?
+* Does the DIV's focus style NOT apply with mouse focus (after click)?
+
+When you tab to the `div`, you want to be able to see that you've done so. In this case we apply a custom visual style, with a 1px black outline.
+
+Try applying this with `:focus`:
+```css
+.divbutton:focus {
+  outline: 1px solid #000;
+}
+```
+Tab to the button and all is well, you can see the outline! However we are not quite done. Try clicking the `div` and you'll see the focus outline remains after you've clicked it. Compare this with clicking the `button` - you'll see that mouse focus does not activate the outline. This is a very common complaint during design reviews - keyboard styles applying during mouse interaction.
+
+In the past this required custom JavaScript to sniff for user input and apply styles accordingly, 
+
+Thankfully now that IE11 has been retires, we can use a new CSS pseudo-class that applies focus styles based on the user's input modality - `:focus-visible`:
+```css
+.divbutton:focus-visible {
+  outline: 1px solid #000;
+}
+```
+
+Background:
+
+* [MDN CSS :focus-visible](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible)
+* [caniuse :focus-visible](https://caniuse.com/css-focus-visible)
+
+### Styling the DIV for hover states (multiple tests)
+
+Tests:
+
+* When enabled, DIV should apply hover style
+* When disabled, the DIV should not apply hover style
+
+Similar to focus, you need to be careful about applying custom hover states. Disabled buttons should not hover, after all.
+
+Tey applying this style:
+
+```css
+.divbutton:hover {
+  background: #eee;
+}
+```
+...then try hovering the button while it is disabled. The hover style still applies even when the `div` is disabled and shouldn't be reacting. If you have trouble seeing the style change, set the background to a darker colour.
+
+To avoid applying custom style to a disabled element, you need to scope it to the enabled state. On a `button` you can do this by adding the `:enabled` pseudo selector:
+```css
+.fancybutton:enabled:hover {
+  background: #eee;
+}
+```
+You can also achieve this with a `:not()`:
+```css
+.fancybutton:not(:disabled):hover {
+  background: #eee;
+}
+```
+But the only real reason to mention this format is to help explain the `div`'s required code:
+
+```css
+.divbutton[aria-disabled="false"]:hover {
+  background: #eee;
+}
+```
+The `div` can't use the normal pseudo selector, so you need to use the `aria-disabled` attribute added earlier with JavaScript. Be sure to set this to `#eee` so test will pass.
+
+Background:
+
+* [MDN CSS :enabled](https://developer.mozilla.org/en-US/docs/Web/CSS/:enabled)
+* [MDN CSS :disabled](https://developer.mozilla.org/en-US/docs/Web/CSS/:disabled)
+* [MDN CSS :not](https://developer.mozilla.org/en-US/docs/Web/CSS/:not)
+
+
+### Styling the DIV for active states (multiple tests)
+
+Tests:
+
+* When enabled, DIV should apply active style
+* When disabled, DIV should not apply active style
+
+Active states need to be scoped the same way as hover states. 
+
 
 ## Conclusion
 

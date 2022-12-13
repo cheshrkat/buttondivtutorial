@@ -1,5 +1,8 @@
 :root {
   --text-size: 1.2rem;
+  --resting-background: #ccc linear-gradient(to bottom, #f6f6f6 0%, #dedede 100%);
+  --active-background: #ddd linear-gradient(to top, #f6f6f6 0%, #dedede 100%)
+  --hover-background: #eee;
 }
 
 /* Page styles you can ignore */
@@ -20,21 +23,21 @@ body {
 
 /* BUTTON styles */
 .fancybutton {
-  background: linear-gradient(to bottom, #f6f6f6 0%, #dedede 100%);
+  background: var(--resting-background);
   border: 1px solid #ccc;
   border-radius: 4px;
   color: #000;
   padding: 0.5rem 1rem;
   font-size: var(--text-size);
 }
-.fancybutton:not(:disabled):hover {
-  background: #eee;
+.fancybutton:enabled:hover {
+  background: var(--hover-background);
 }
-.fancybutton:focus {
+.fancybutton:focus-visible {
   outline: 1px solid black;
 }
-.fancybutton:not(:disabled):active {
-  background: linear-gradient(to top, #f6f6f6 0%, #dedede 100%);
+.fancybutton:enabled:active {
+  background: var(--active-background);
 }
 .fancybutton:disabled {
   opacity: 0.5;
@@ -44,7 +47,7 @@ body {
 .divbutton {
 
   /* So far, so good - same as button... */
-  background: linear-gradient(to bottom, #f6f6f6 0%, #dedede 100%);
+  background: var(--resting-background);
   border: 1px solid #ccc;
   border-radius: 4px;
   color: #000;
@@ -63,22 +66,17 @@ body {
 }
 
 .divbutton[aria-disabled="false"]:hover {
-  background: #eee;
+  background: var(--hover-background);
 }
 
-.fancybutton:focus {
-  outline: 1px solid black;
+.divbutton:focus-visible {
+  outline: 1px solid #000;
 }
 
 .divbutton[aria-disabled="false"]:active {
-  background: linear-gradient(to top, #f6f6f6 0%, #dedede 100%);
+  background: var(--active-background);
 }
 
 .divbutton[aria-disabled="true"] {
   opacity: 0.5;
-}
-
-/* This dovetails with JS to detect input */
-body[data-inputmode="mouse"] .divbutton:focus {
-  outline: none;
 }
