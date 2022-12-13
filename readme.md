@@ -1,24 +1,22 @@
 # Button vs. Div Frontend Accessibility Tutorial
 
 > **Warning**
-> This tutorial is in beta, needs testing and almost certainly contains a few mistakes. If you find a problem please log an issue or send me a toot: [mastodon.social/@200ok](https://mastodon.social/@200ok)
+> This tutorial is in beta, needs testing and almost certainly contains a few mistakes. If you find a problem please log an issue or ping me at [mastodon.social/@200ok](https://mastodon.social/@200ok)
 
 This is a test-driven tutorial designed to teach you all the things HTML `button` elements actually do, by replicating their functionality on a `div` element using HTML, CSS and JavaScript. Note that in production, you really should just use a `button` - but after this you'll understand why. Also if you are maintaining existing code that relies on clickable `div` elements, it will help you understand how to make them more accessible.
 
-The tutorial runs through a modified version of the build I described at A11y Camp 2019, in my talk "Clickable DIVs and Other Icebergs". You can view the talk at https://www.youtube.com/watch?v=VxoiHb4aqXg but it's not required to complete the tutorial. The main modification is that this tutorial applies a mild custom design to both elements, instead of trying to replicate the design of a default button.
+The tutorial runs through a modified version of the build I described at A11y Camp 2019, in my talk "Clickable DIVs and Other Icebergs". You can view the talk at https://www.youtube.com/watch?v=VxoiHb4aqXg but it's not required to complete the tutorial. Note that some technical details have changed since the talk.
 
 ## Prerequisite knowledge
 
 * You need to have basic knowledge of HTML, CSS and JavaScript/DOM scripting
-* You should also be able to execute NPM commands on the command line
+* You need to be able to install NodeJS and execute NPM commands on the command line
 
 [MDN has a beginner web curriculum](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) including a [command line crash course](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line) if you need them.
 
 ## The tutorial task
 
-The task is to make an HTML `div` element look, feel and work the same as an HTML `button` for the same basic functionality (a click counter). You confirm this by making the end-to-end test suite pass. 
-
-There is a detailed specification so you can understand the functionality to replicate; and the readme will guide you through the steps. Finally, if you get stuck there is a demo implementation that passes all the tests; so you can refer to that if you need to.
+The task is to make an HTML `div` element look, feel and work the same as an HTML `button` for the same basic functionality (a click counter). You confirm this by editing live code and ultimately making the end-to-end test suite pass. There is a detailed specification so you can understand the functionality to replicate; and the readme will guide you through the steps. If you get stuck there is a demo implementation that passes all the tests; so you can refer to that if you need to.
 
 ## The specification
 
