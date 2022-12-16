@@ -1,3 +1,5 @@
+![""](assets/button-vs-div-github-social.png)
+
 # Button vs. Div Frontend Accessibility Tutorial
 
 > **Warning**
