@@ -1,0 +1,15 @@
+name: 'Run tests over demo solution'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+  
+jobs:
+  demo-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install
+      - run: npm run testdemo
