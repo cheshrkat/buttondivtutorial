@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A test-driven web accessibility tutorial about making a DIV equivalent to a BUTTON",
   "engines": {
-    "node": "16.x || 18.x"
+    "node": "16.* || 18.*"
   },
 
   "scripts": {
