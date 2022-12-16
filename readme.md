@@ -46,7 +46,7 @@ Additional requirements when disabled:
 ### Set up & check the demo is working
 
 1. Clone or download this repository
-2. [Install NodeJS](https://nodejs.org/)
+2. [Install NodeJS](https://nodejs.org/) - while any version above 16 should work, check package.json for tested versions
 3. Open the repository in your CLI of choice (WSL or Terminal recommended, should also work in Powershell)
 4. In the repo directory, run `npm install`
 5. In the repo directory, run `npm run testdemo` to run the Playwright tests over the demo. These should all pass - this confirms your environment is set up and ready.
