@@ -1,7 +1,7 @@
 :root {
   --text-size: 1.2rem;
   --resting-background: #ccc linear-gradient(to bottom, #f6f6f6 0%, #dedede 100%);
-  --active-background: #ddd linear-gradient(to top, #f6f6f6 0%, #dedede 100%)
+  --active-background: #ddd linear-gradient(to top, #f6f6f6 0%, #dedede 100%);
   --hover-background: #eee;
 }
 
