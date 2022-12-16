@@ -1,4 +1,4 @@
-![""](assets/button-vs-div-banner.png)
+![""](assets/button-vs-div-banner.webp)
 
 # Button vs. Div Frontend Accessibility Tutorial
 
