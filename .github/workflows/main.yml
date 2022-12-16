@@ -1,0 +1,14 @@
+name: 'Demo test run'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+  
+jobs:
+  demo-test:
+    steps:
+      - run: npm install
+      - run: npm run testdemo
