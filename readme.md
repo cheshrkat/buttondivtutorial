@@ -1,4 +1,4 @@
-![""](assets/button-vs-div-github-social.png)
+![""](assets/button-vs-div-banner.png)
 
 # Button vs. Div Frontend Accessibility Tutorial
 
