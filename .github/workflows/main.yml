@@ -1,4 +1,6 @@
-name: 'Demo test run'
+name: 'Run tests over demo solution'
+
+runs-on: ubuntu-latest
 
 on:
   workflow_dispatch:
