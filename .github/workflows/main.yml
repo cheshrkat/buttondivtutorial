@@ -13,8 +13,5 @@ jobs:
     steps:
       - name: install
         run: npm install
-        with:
-          node-version: 18.x
-          cache: npm
       - name: tests
         run: npm run testdemo
