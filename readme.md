@@ -5,16 +5,15 @@
 > **Warning**
 > This tutorial is in beta, needs testing and almost certainly contains a few mistakes. If you find a problem please log an issue or ping me at [mastodon.social/@200ok](https://mastodon.social/@200ok)
 
-This is a test-driven tutorial designed to teach you all the things HTML `button` elements actually do, by replicating their functionality on a `div` element using HTML, CSS and JavaScript. Note that in production, you really should just use a `button` - but after this you'll understand why. Also if you are maintaining existing code that relies on clickable `div` elements, it will help you understand how to make them more accessible.
+This is a tutorial designed to teach you all the things HTML `button` elements actually do, by replicating their functionality on a `div` element using HTML, CSS and JavaScript. Note that in production, you really should just use a `button` - but after this you'll understand why. Also if you are maintaining existing code that relies on clickable `div` elements, it will help you understand how to make them more accessible.
 
 The tutorial runs through a modified version of the build I described at A11y Camp 2019, in my talk "Clickable DIVs and Other Icebergs". You can view the talk at https://www.youtube.com/watch?v=VxoiHb4aqXg but it's not required to complete the tutorial. Note that some technical details have changed since the talk.
 
 ## Prerequisite knowledge
 
-* You need to have basic knowledge of HTML, CSS and JavaScript/DOM scripting
-* You need to be able to install NodeJS and execute NPM commands on the command line
-
-[MDN has a beginner web curriculum](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) including a [command line crash course](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line) if you need them.
+* To complete the fundamentals of the tutorial, you need to have basic knowledge of HTML, CSS and JavaScript/DOM scripting. [MDN has a beginner web curriculum](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) if you need it.
+* To use the tests, you need to be able to install NodeJS and execute NPM commands on the command line. [MDN has a command line crash course](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line) if you need it. The tutorial does assume you are using the tests.
+* If you prefer not to use the tests, you can complete the tutorial by editing the files locally and manually testing the solution. This also allows you to test the solution with alternative tools if you prefer them.
 
 ## The tutorial task
 
@@ -171,6 +170,7 @@ Background:
 
 * [MDN: keyboard accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Keyboard)
 * [MDN: key event](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+* [W3C: WCAG2 SCR35: Making actions keyboard accessible](https://www.w3.org/WAI/WCAG21/Techniques/client-side-script/SCR35)
 
 ### Disabling the `div` (multiple tests)
 

@@ -1,5 +1,18 @@
 const { test, expect } = require('@playwright/test');
 
+/**
+ * 
+ * CAVEAT!
+ * 
+ * Many of these tests are a little bit unusual compared with things 
+ * you'd normally do in Playwright. For example, testing long CSS values 
+ * is brittle and not something I'd suggest in a production codebase.
+ * 
+ * In other words, remember this is not a Playwright tutorial - don't 
+ * take these tests as any kind of best practice.
+ * 
+ */
+
 // Selectors
 const theDefaultButton = '#defaultbutton';
 const theDefaultButtonCounter = '#defaultbuttoncounter';
