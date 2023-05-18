@@ -7,7 +7,7 @@ This is a tutorial designed to teach you all the things HTML `button` elements a
 The tutorial runs through a modified version of the build I described at A11y Camp 2019, in my talk "Clickable DIVs and Other Icebergs". You can view the talk at https://www.youtube.com/watch?v=VxoiHb4aqXg but it's not required to complete the tutorial. Note that some technical details have changed since the talk.
 
 > **Note**
-> If you find any problems or mistakes in this tutorial, please log an issue or ping me at [mastodon.social/@200ok](https://mastodon.social/@200ok)
+> If you encounter any problems or mistakes in this tutorial, please [log an issue](https://github.com/cheshrkat/buttondivtutorial/issues).
 
 ## Prerequisite knowledge
 
