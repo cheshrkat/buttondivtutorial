@@ -7,7 +7,7 @@ This is a tutorial designed to teach you all the things HTML `button` elements a
 The tutorial runs through a modified version of the build I described at A11y Camp 2019, in my talk "Clickable DIVs and Other Icebergs". You can view the talk at https://www.youtube.com/watch?v=VxoiHb4aqXg but it's not required to complete the tutorial. Note that some technical details have changed since the talk.
 
 > **Note**
-> If you encounter any problems or mistakes in this tutorial, please [log an issue](https://github.com/cheshrkat/buttondivtutorial/issues).
+> If you encounter any problems or mistakes in this tutorial, [issue reports](https://github.com/cheshrkat/buttondivtutorial/issues) and [contributions](https://github.com/cheshrkat/buttondivtutorial/blob/main/CONTRIBUTING.md) are welcome.
 
 ## Prerequisite knowledge
 
@@ -23,24 +23,24 @@ The task is to make an HTML `div` element look, feel and work the same as an HTM
 
 Behaviour:
 
-* Clicking the DIV must increment the counter for the DIV
-* You must be able to put focus on the DIV by hitting the TAB key and move back off with SHIFT+TAB
-* You must be able to increment the counter by pressing ENTER or SPACEBAR while the DIV has focus
-* When you hover over the DIV, the mouse cursor should look the same as when you hover a BUTTON
+* Clicking the `div` must increment the counter for the `div`
+* You must be able to put focus on the `div` by hitting the TAB key and move back off with SHIFT+TAB
+* You must be able to increment the counter by pressing ENTER or SPACEBAR while the `div` has focus
+* When you hover over the `div`, the mouse cursor should look the same as when you hover a `button`
 * If you click and drag on the button, the text should not select
 
 Style:
 
-* The DIV must look the same as the BUTTON in all states; including resting state, focus, hover, active, clicked and disabled. Note you should copy and paste the exact colour codes, gradients, etc to ensure tests pass.
-* In addition to the visual treatment, the layout of the DIV be the same as well - it should only be as wide as the text requires
+* The `div` must look the same as the `button` in all states; including resting state, focus, hover, active, clicked and disabled. Note you should copy and paste the exact colour codes, gradients, etc to ensure tests pass.
+* In addition to the visual treatment, the layout of the `div` must be the same as well - it should only be as wide as the text requires
 
 Additional requirements when disabled:
 
-* The DIV must look the same as the disabled BUTTON
-* The DIV must not respond to click functionally - that is, the counter must not increment if the click the control while it is disabled
-* The DIV must not be focusable with the keyboard
-* The DIV must not respond to hover
-* The DIV must not respond to click visually - no changes to colour, border, etc
+* The `div` must look the same as the disabled `button`
+* The `div` must not respond to click functionally - that is, the counter must not increment if the click the control while it is disabled
+* The `div` must not be focusable with the keyboard
+* The `div` must not respond to hover
+* The `div` must not respond to click visually - no changes to colour, border, etc
 
 ## How to complete the tutorial
 
@@ -56,7 +56,7 @@ Additional requirements when disabled:
 
 Available commands:
 
-* `npm run testdiv` - run only the DIV tests. This is the command you need for most of the tutorial.
+* `npm run testdiv` - run only the `div` tests. This is the command you need for most of the tutorial.
 * `npm run test` - run all tests over your solution - this includes extra tests for the button and other elements.
 * `npm run testdemo` - run all tests over the demo solution
 * `npm run start` - run a local server with your solution
