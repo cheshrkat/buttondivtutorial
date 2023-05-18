@@ -240,7 +240,7 @@ Tab to the button and all is well, you can see the outline! However we are not q
 
 In the past this required custom JavaScript to sniff for user input and apply styles accordingly, 
 
-Thankfully now that IE11 has been retires, we can use a new CSS pseudo-class that applies focus styles based on the user's input modality - `:focus-visible`:
+Thankfully now that IE11 has been retired, we can use a new CSS pseudo-class that applies focus styles based on the user's input modality - `:focus-visible`
 ```css
 .divbutton:focus-visible {
   outline: 1px solid #000;
@@ -289,7 +289,7 @@ But the only real reason to mention this format is to help explain the `div`'s r
   background: #eee;
 }
 ```
-The `div` can't use the normal pseudo selector, so you need to use the `aria-disabled` attribute added earlier with JavaScript. Be sure to set this to `#eee` so test will pass.
+The `div` can't use the normal pseudo selector, so you need to use the `aria-disabled` attribute added earlier with JavaScript. Be sure to set this to `#eee` so the test will pass.
 
 Background:
 
